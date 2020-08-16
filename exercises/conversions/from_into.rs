@@ -32,13 +32,13 @@ impl Default for Person {
 // 5. Extract the other element from the split operation and parse it into a `usize` as the age
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
+
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
         if s.len() == 0 {
             Person::default()
         } else {
             let elems: Vec<&str> = s.split(",").collect();
-            
             // missing comma
             if elems.len() != 2 {
                 return Person::default();

@@ -67,9 +67,9 @@ mod tests {
     fn calculate_transport_fees() {
         let sender_country = String::from("Spain");
         let recipient_country = String::from("Spain");
-
         let cents_per_kg = 3000;
         let package = Package::new(sender_country, recipient_country, 1500);
+
         assert_eq!(package.get_fees(cents_per_kg), 4500);
     }
 }
