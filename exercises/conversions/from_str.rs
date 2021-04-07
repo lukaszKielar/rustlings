@@ -2,7 +2,6 @@
 // Additionally, upon implementing FromStr, you can use the `parse` method
 // on strings to generate an object of the implementor type.
 // You can read more about it at https://doc.rust-lang.org/std/str/trait.FromStr.html
-use std::error;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -10,7 +9,6 @@ struct Person {
     name: String,
     age: usize,
 }
-
 
 // Steps:
 // 1. If the length of the provided string is 0, an error should be returned
@@ -23,13 +21,17 @@ struct Person {
 // If everything goes well, then return a Result of a Person object
 
 impl FromStr for Person {
-    type Err = Box<dyn error::Error>;
+    type Err = String;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
         if s.len() == 0 {
             return Err("Please provide non empty string".to_string());
         }
 
         let person_vec: Vec<&str> = s.split(",").collect();
+
+        if person_vec.len() != 2 {
+            return Err("Please provide exactly 2 comma values, e.g. \"Peter,40\"".to_string());
+        }
 
         if (person_vec[0].len() == 0) | (person_vec[1].len() == 0) {
             return Err(format!(
